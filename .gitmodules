@@ -1,0 +1,6 @@
+[submodule "mtg-card-tool"]
+	path = mtg-card-tool
+	url = https://github.com/halljared/mtg-card-tool.git
+[submodule "card-tool-server"]
+	path = card-tool-server
+	url = https://github.com/halljared/card-tool-server.git

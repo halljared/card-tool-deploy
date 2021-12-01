@@ -1,0 +1,49 @@
+version: "3"
+services:
+  nodeapi:
+    container_name: nodeapi
+    build:
+      context: ./card-tool-server
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017
+    networks:
+      - frontend
+      - backend
+  db:
+    container_name: db
+    image: mongo
+    restart: always
+    volumes:
+      - mongodbdata:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+  webserver:
+    build:
+      context: mtg-card-tool
+      dockerfile: Dockerfile
+    container_name: webserver
+    restart: unless-stopped
+    environment:
+      APP_ENV: "prod"
+      APP_NAME: "webserver"
+      APP_DEBUG: "false"
+      SERVICE_NAME: "webserver"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - frontend
+
+volumes:
+  mongodbdata:
+    driver: local
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
