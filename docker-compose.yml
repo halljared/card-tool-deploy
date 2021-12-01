@@ -7,7 +7,11 @@ services:
     depends_on:
       - db
     environment:
-      - MONGO_URL=mongodb://db:27017
+      APP_ENV: "prod"
+      MONGODB_DATABASE: mtg_card_tool
+      MONGODB_USERNAME: nodeapiuser
+      MONGODB_PASSWORD: ezpass
+      MONGODB_HOSTNAME: db
     networks:
       - frontend
       - backend
@@ -15,6 +19,12 @@ services:
     container_name: db
     image: mongo
     restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongodbuser
+      MONGO_INITDB_ROOT_PASSWORD: ezrootpass
+      MONGO_INITDB_DATABASE: mtg_card_tool
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
     volumes:
       - mongodbdata:/data/db
     ports:
@@ -29,9 +39,8 @@ services:
     restart: unless-stopped
     environment:
       APP_ENV: "prod"
-      APP_NAME: "webserver"
-      APP_DEBUG: "false"
-      SERVICE_NAME: "webserver"
+      APP_NAME: webserver
+      SERVICE_NAME: webserver
     ports:
       - "80:80"
       - "443:443"
