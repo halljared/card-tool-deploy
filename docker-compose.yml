@@ -40,6 +40,7 @@ services:
     environment:
       APP_ENV: "prod"
       APP_NAME: webserver
+      VUE_APP_API_HOST: http://webserver/services
       SERVICE_NAME: webserver
     ports:
       - "80:80"
