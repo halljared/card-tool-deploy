@@ -2,8 +2,8 @@ version: "3"
 services:
   nodeapi:
     container_name: nodeapi
-    build:
-      context: ./card-tool-server
+    image: halljared/mtg-card-tool:nodeapi
+    restart: always
     depends_on:
       - db
     environment:
@@ -32,16 +32,9 @@ services:
     networks:
       - backend
   webserver:
-    build:
-      context: mtg-card-tool
-      dockerfile: Dockerfile
     container_name: webserver
-    restart: unless-stopped
-    environment:
-      APP_ENV: "prod"
-      APP_NAME: webserver
-      VUE_APP_API_HOST: http://webserver/services
-      SERVICE_NAME: webserver
+    image: halljared/mtg-card-tool:webserver
+    restart: always
     ports:
       - "80:80"
       - "443:443"
