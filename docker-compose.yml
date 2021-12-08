@@ -33,8 +33,10 @@ services:
       - backend
   webserver:
     container_name: webserver
-    image: halljared/mtg-card-tool:webserver
+    image: halljared/mtg-card-tool:ssl
     restart: always
+    volumes:
+      - ./ssl:/etc/nginx/ssl/
     ports:
       - "80:80"
       - "443:443"
